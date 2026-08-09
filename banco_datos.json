@@ -1,0 +1,1027 @@
+{
+    "socios": {
+        "1": {
+            "cuenta": "215-00001",
+            "saldo": 35716.18,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-09 01:23:35",
+                    "desc": "Transf. a Thalía Aymet Quispe Condori",
+                    "cuenta_enmascarada": "*****9999"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 100.0,
+                    "fecha": "2026-08-09 01:20:41",
+                    "desc": "Transf. a Juanito D Angex Store",
+                    "cuenta_enmascarada": "*****9999"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-09 01:13:37",
+                    "desc": "Transf. a Juanito D Angex Store",
+                    "cuenta_enmascarada": "*****9999"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 100.0,
+                    "fecha": "2026-08-09 01:06:09",
+                    "desc": "Transf. a Juanito D Angex Store",
+                    "cuenta_enmascarada": "*****9999"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-08 13:24:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********9292"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-08 11:07:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********5620"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-08 10:20:00",
+                    "desc": "Transf. a Daniel Ibarra",
+                    "cuenta_enmascarada": "**********8638"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-07 18:48:00",
+                    "desc": "Transf. a Tomás Vargas",
+                    "cuenta_enmascarada": "**********7723"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-07 17:52:00",
+                    "desc": "Transf. a Sofía Medina",
+                    "cuenta_enmascarada": "**********7315"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-07 17:00:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********0115"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 09:46:00",
+                    "desc": "Transf. a Emma Fuentes",
+                    "cuenta_enmascarada": "**********4134"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-06 14:02:00",
+                    "desc": "Transf. a Emma Fuentes",
+                    "cuenta_enmascarada": "**********0857"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-06 10:43:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********8628"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-06 08:34:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********2223"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-05 15:14:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********9518"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-05 10:19:00",
+                    "desc": "Transf. a Gabriel Crespo",
+                    "cuenta_enmascarada": "**********1323"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-05 09:47:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********0397"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-05 08:26:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********0275"
+                }
+            ],
+            "pendientes": []
+        },
+        "2": {
+            "cuenta": "215-00002",
+            "saldo": 35283.58,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-08 18:01:00",
+                    "desc": "Transf. a Daniel Ibarra",
+                    "cuenta_enmascarada": "**********4622"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-08 16:46:00",
+                    "desc": "Transf. a Alejandro Garrido",
+                    "cuenta_enmascarada": "**********7305"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-08 16:37:00",
+                    "desc": "Transf. a Zoe Hidalgo",
+                    "cuenta_enmascarada": "**********6235"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-07 20:46:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********4351"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-07 20:31:00",
+                    "desc": "Transf. a Valeria Delgado",
+                    "cuenta_enmascarada": "**********2927"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 19:38:00",
+                    "desc": "Transf. a Leonardo Ríos",
+                    "cuenta_enmascarada": "**********4092"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 12:48:00",
+                    "desc": "Transf. a Gabriel Crespo",
+                    "cuenta_enmascarada": "**********8159"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-06 15:01:00",
+                    "desc": "Transf. a Lucas Alcaraz",
+                    "cuenta_enmascarada": "**********3562"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-06 14:26:00",
+                    "desc": "Transf. a Camila Quiroga",
+                    "cuenta_enmascarada": "**********0870"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-06 10:19:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********4564"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-05 19:35:00",
+                    "desc": "Transf. a Gabriel Crespo",
+                    "cuenta_enmascarada": "**********0566"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-05 18:51:00",
+                    "desc": "Transf. a Lucas Alcaraz",
+                    "cuenta_enmascarada": "**********6336"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-05 18:36:00",
+                    "desc": "Transf. a Catalina Herrera",
+                    "cuenta_enmascarada": "**********1366"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-05 18:14:00",
+                    "desc": "Transf. a Lucas Alcaraz",
+                    "cuenta_enmascarada": "**********7814"
+                }
+            ],
+            "pendientes": []
+        },
+        "3": {
+            "cuenta": "215-00003",
+            "saldo": 39150.8,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-08 20:11:00",
+                    "desc": "Transf. a Samuel Abad",
+                    "cuenta_enmascarada": "**********0874"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-08 17:07:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********2666"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-08 16:19:00",
+                    "desc": "Transf. a Catalina Herrera",
+                    "cuenta_enmascarada": "**********4981"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-07 14:26:00",
+                    "desc": "Transf. a Diego Tejada",
+                    "cuenta_enmascarada": "**********3362"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-07 12:22:00",
+                    "desc": "Transf. a Diego Tejada",
+                    "cuenta_enmascarada": "**********1198"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-07 11:18:00",
+                    "desc": "Transf. a Valentina Ortega",
+                    "cuenta_enmascarada": "**********9411"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-07 09:07:00",
+                    "desc": "Transf. a Julieta Fajardo",
+                    "cuenta_enmascarada": "**********3771"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-06 17:02:00",
+                    "desc": "Transf. a Mateo Lozano",
+                    "cuenta_enmascarada": "**********1156"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-06 11:39:00",
+                    "desc": "Transf. a Alejandro Garrido",
+                    "cuenta_enmascarada": "**********9672"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-06 11:19:00",
+                    "desc": "Transf. a Emma Fuentes",
+                    "cuenta_enmascarada": "**********2453"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-05 13:55:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********3648"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-05 13:25:00",
+                    "desc": "Transf. a Camila Quiroga",
+                    "cuenta_enmascarada": "**********3138"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-05 12:57:00",
+                    "desc": "Transf. a Lucía Zamora",
+                    "cuenta_enmascarada": "**********0396"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-05 08:46:00",
+                    "desc": "Transf. a Elena Blanco",
+                    "cuenta_enmascarada": "**********8106"
+                }
+            ],
+            "pendientes": []
+        },
+        "4": {
+            "cuenta": "215-00004",
+            "saldo": 39490.66,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-08 19:05:00",
+                    "desc": "Transf. a Santiago Navarro",
+                    "cuenta_enmascarada": "**********9057"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-08 17:05:00",
+                    "desc": "Transf. a Joaquín Estévez",
+                    "cuenta_enmascarada": "**********8879"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-08 15:23:00",
+                    "desc": "Transf. a Catalina Herrera",
+                    "cuenta_enmascarada": "**********9124"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 18:55:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********3359"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-07 17:35:00",
+                    "desc": "Transf. a Isabella Salinas",
+                    "cuenta_enmascarada": "**********8771"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-07 14:24:00",
+                    "desc": "Transf. a Tomás Vargas",
+                    "cuenta_enmascarada": "**********9228"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-07 13:25:00",
+                    "desc": "Transf. a Martina Benítez",
+                    "cuenta_enmascarada": "**********9862"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-06 20:22:00",
+                    "desc": "Transf. a Leonardo Ríos",
+                    "cuenta_enmascarada": "**********7926"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-06 20:19:00",
+                    "desc": "Transf. a Camila Quiroga",
+                    "cuenta_enmascarada": "**********8715"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-06 14:27:00",
+                    "desc": "Transf. a Lucas Alcaraz",
+                    "cuenta_enmascarada": "**********8432"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 16:19:00",
+                    "desc": "Transf. a Emma Fuentes",
+                    "cuenta_enmascarada": "**********8429"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-05 14:53:00",
+                    "desc": "Transf. a Elena Blanco",
+                    "cuenta_enmascarada": "**********3043"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 09:30:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********9464"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-05 08:54:00",
+                    "desc": "Transf. a Victoria Díaz",
+                    "cuenta_enmascarada": "**********1124"
+                }
+            ],
+            "pendientes": []
+        },
+        "5": {
+            "cuenta": "215-00005",
+            "saldo": 37291.55,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-08 20:26:00",
+                    "desc": "Transf. a Martina Benítez",
+                    "cuenta_enmascarada": "**********0261"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-08 18:12:00",
+                    "desc": "Transf. a Sofía Medina",
+                    "cuenta_enmascarada": "**********6546"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-08 13:50:00",
+                    "desc": "Transf. a Tomás Vargas",
+                    "cuenta_enmascarada": "**********9683"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-07 20:49:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********1379"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-07 17:17:00",
+                    "desc": "Transf. a Mateo Lozano",
+                    "cuenta_enmascarada": "**********5574"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-07 10:40:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********4254"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-07 08:16:00",
+                    "desc": "Transf. a Elena Blanco",
+                    "cuenta_enmascarada": "**********6627"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-06 12:36:00",
+                    "desc": "Transf. a Leonardo Ríos",
+                    "cuenta_enmascarada": "**********7300"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-06 11:53:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********8588"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-06 08:43:00",
+                    "desc": "Transf. a Tomás Vargas",
+                    "cuenta_enmascarada": "**********3977"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-05 20:33:00",
+                    "desc": "Transf. a Valeria Delgado",
+                    "cuenta_enmascarada": "**********4854"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-05 20:08:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********6234"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 17:19:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********9128"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 13:19:00",
+                    "desc": "Transf. a Camila Quiroga",
+                    "cuenta_enmascarada": "**********9163"
+                }
+            ],
+            "pendientes": []
+        },
+        "6": {
+            "cuenta": "215-00006",
+            "saldo": 37418.45,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-08 18:14:00",
+                    "desc": "Transf. a Daniel Ibarra",
+                    "cuenta_enmascarada": "**********4540"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-08 10:52:00",
+                    "desc": "Transf. a Martina Benítez",
+                    "cuenta_enmascarada": "**********7360"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-08 10:21:00",
+                    "desc": "Transf. a Tomás Vargas",
+                    "cuenta_enmascarada": "**********4907"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 18:27:00",
+                    "desc": "Transf. a Lucas Alcaraz",
+                    "cuenta_enmascarada": "**********3922"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-07 15:58:00",
+                    "desc": "Transf. a Sara Juárez",
+                    "cuenta_enmascarada": "**********4369"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-07 15:54:00",
+                    "desc": "Transf. a Emma Fuentes",
+                    "cuenta_enmascarada": "**********6879"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-07 12:58:00",
+                    "desc": "Transf. a Sofía Medina",
+                    "cuenta_enmascarada": "**********8949"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-06 13:51:00",
+                    "desc": "Transf. a Daniel Ibarra",
+                    "cuenta_enmascarada": "**********0459"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-06 11:47:00",
+                    "desc": "Transf. a Elena Blanco",
+                    "cuenta_enmascarada": "**********1953"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-06 10:59:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********2263"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-05 19:51:00",
+                    "desc": "Transf. a Joaquín Estévez",
+                    "cuenta_enmascarada": "**********2456"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-05 19:17:00",
+                    "desc": "Transf. a Emma Fuentes",
+                    "cuenta_enmascarada": "**********4977"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-05 17:59:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********4556"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 17:00:00",
+                    "desc": "Transf. a Samuel Abad",
+                    "cuenta_enmascarada": "**********5890"
+                }
+            ],
+            "pendientes": []
+        },
+        "7": {
+            "cuenta": "215-00007",
+            "saldo": 36142.1,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-08 16:24:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********7540"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-08 13:00:00",
+                    "desc": "Transf. a Martina Benítez",
+                    "cuenta_enmascarada": "**********6008"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-08 12:55:00",
+                    "desc": "Transf. a Julieta Fajardo",
+                    "cuenta_enmascarada": "**********1154"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-07 19:01:00",
+                    "desc": "Transf. a Santiago Navarro",
+                    "cuenta_enmascarada": "**********4271"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-07 19:00:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********3097"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-07 18:02:00",
+                    "desc": "Transf. a Victoria Díaz",
+                    "cuenta_enmascarada": "**********5338"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 08:25:00",
+                    "desc": "Transf. a Mateo Lozano",
+                    "cuenta_enmascarada": "**********0311"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-06 16:51:00",
+                    "desc": "Transf. a Nicolás Espinosa",
+                    "cuenta_enmascarada": "**********5799"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-06 11:08:00",
+                    "desc": "Transf. a Lucas Alcaraz",
+                    "cuenta_enmascarada": "**********5278"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-06 08:47:00",
+                    "desc": "Transf. a Sofía Medina",
+                    "cuenta_enmascarada": "**********0861"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 16:39:00",
+                    "desc": "Transf. a Santiago Navarro",
+                    "cuenta_enmascarada": "**********2011"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 16:16:00",
+                    "desc": "Transf. a Sofía Medina",
+                    "cuenta_enmascarada": "**********0136"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-05 12:07:00",
+                    "desc": "Transf. a Alejandro Garrido",
+                    "cuenta_enmascarada": "**********2385"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-05 10:32:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********8172"
+                }
+            ],
+            "pendientes": []
+        },
+        "8": {
+            "cuenta": "215-00008",
+            "saldo": 33015.23,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-08 19:46:00",
+                    "desc": "Transf. a Gabriel Crespo",
+                    "cuenta_enmascarada": "**********1207"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-08 19:21:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********5556"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-08 16:25:00",
+                    "desc": "Transf. a Zoe Hidalgo",
+                    "cuenta_enmascarada": "**********2069"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 11:15:00",
+                    "desc": "Transf. a Benjamín Calderón",
+                    "cuenta_enmascarada": "**********9078"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-07 09:22:00",
+                    "desc": "Transf. a Valentina Ortega",
+                    "cuenta_enmascarada": "**********6308"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-07 08:18:00",
+                    "desc": "Transf. a Alejandro Garrido",
+                    "cuenta_enmascarada": "**********8596"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 08:08:00",
+                    "desc": "Transf. a Zoe Hidalgo",
+                    "cuenta_enmascarada": "**********1338"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-06 20:42:00",
+                    "desc": "Transf. a Alejandro Garrido",
+                    "cuenta_enmascarada": "**********8349"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-06 15:53:00",
+                    "desc": "Transf. a Joaquín Estévez",
+                    "cuenta_enmascarada": "**********0064"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-06 09:06:00",
+                    "desc": "Transf. a Gabriel Crespo",
+                    "cuenta_enmascarada": "**********8394"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-05 19:56:00",
+                    "desc": "Transf. a Valentina Ortega",
+                    "cuenta_enmascarada": "**********0998"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-05 19:38:00",
+                    "desc": "Transf. a Julieta Fajardo",
+                    "cuenta_enmascarada": "**********2648"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-05 16:32:00",
+                    "desc": "Transf. a Camila Quiroga",
+                    "cuenta_enmascarada": "**********1735"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-05 12:01:00",
+                    "desc": "Transf. a Camila Quiroga",
+                    "cuenta_enmascarada": "**********7598"
+                }
+            ],
+            "pendientes": []
+        },
+        "9": {
+            "cuenta": "215-00009",
+            "saldo": 39397.06,
+            "movimientos": [
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-08 20:09:00",
+                    "desc": "Transf. a Sara Juárez",
+                    "cuenta_enmascarada": "**********6212"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 6000.0,
+                    "fecha": "2026-08-08 17:02:00",
+                    "desc": "Transf. a Joaquín Estévez",
+                    "cuenta_enmascarada": "**********9411"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 1000.0,
+                    "fecha": "2026-08-08 09:13:00",
+                    "desc": "Transf. a Martina Benítez",
+                    "cuenta_enmascarada": "**********6764"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-07 17:29:00",
+                    "desc": "Transf. a Camila Quiroga",
+                    "cuenta_enmascarada": "**********3256"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-07 11:20:00",
+                    "desc": "Transf. a Zoe Hidalgo",
+                    "cuenta_enmascarada": "**********5523"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-07 09:52:00",
+                    "desc": "Transf. a Tomás Vargas",
+                    "cuenta_enmascarada": "**********3333"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 5000.0,
+                    "fecha": "2026-08-07 09:40:00",
+                    "desc": "Transf. a Valentina Ortega",
+                    "cuenta_enmascarada": "**********3152"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-06 13:27:00",
+                    "desc": "Transf. a Sara Juárez",
+                    "cuenta_enmascarada": "**********5853"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-06 12:44:00",
+                    "desc": "Transf. a Emma Fuentes",
+                    "cuenta_enmascarada": "**********8902"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-06 09:35:00",
+                    "desc": "Transf. a Gabriel Crespo",
+                    "cuenta_enmascarada": "**********6864"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-05 15:09:00",
+                    "desc": "Transf. a Sara Juárez",
+                    "cuenta_enmascarada": "**********6060"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 2000.0,
+                    "fecha": "2026-08-05 10:49:00",
+                    "desc": "Transf. a Santiago Navarro",
+                    "cuenta_enmascarada": "**********6636"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 3000.0,
+                    "fecha": "2026-08-05 08:40:00",
+                    "desc": "Transf. a Mariana Urbina",
+                    "cuenta_enmascarada": "**********9024"
+                },
+                {
+                    "tipo": "-",
+                    "monto": 4000.0,
+                    "fecha": "2026-08-05 08:30:00",
+                    "desc": "Transf. a Joaquín Estévez",
+                    "cuenta_enmascarada": "**********2990"
+                }
+            ],
+            "pendientes": []
+        }
+    },
+    "afiliados": [
+        {
+            "codigo": "AF-001",
+            "usuario": "juanperez",
+            "pass": "admin123",
+            "fecha": "2026-01-10",
+            "saldo": 150.0
+        },
+        {
+            "codigo": "AF-002",
+            "usuario": "mariagomez",
+            "pass": "maria456",
+            "fecha": "2026-02-15",
+            "saldo": 200.0
+        },
+        {
+            "codigo": "AF-003",
+            "usuario": "luisfernandez",
+            "pass": "luis789",
+            "fecha": "2026-03-20",
+            "saldo": 50.0
+        },
+        {
+            "codigo": "AF-004",
+            "usuario": "anacastro",
+            "pass": "ana321",
+            "fecha": "2026-04-05",
+            "saldo": 300.0
+        },
+        {
+            "codigo": "AF-005",
+            "usuario": "pedrorivera",
+            "pass": "pedro654",
+            "fecha": "2026-05-12",
+            "saldo": 0.0
+        }
+    ],
+    "config": {
+        "cuenta_falsa_nombre": "Thalía Aymet Quispe Condori",
+        "cuenta_falsa_num": "415-99999",
+        "texto_banco": "Yape",
+        "monto_minimo": 100.0,
+        "token_activo": false,
+        "cronometro_activo": false,
+        "qr_path": "C:\\Users\\ANGELO LOPEZ\\Pictures\\Screenshots\\Captura de pantalla 2026-08-08 170726.png",
+        "curso1_path": "",
+        "curso2_path": "",
+        "tiempo_espera_seg": 3
+    },
+    "ultima_fecha_simulacion": "2026-08-09"
+}
