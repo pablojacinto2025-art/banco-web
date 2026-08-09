@@ -425,11 +425,17 @@ else:
             st.error("⚠️ ¡ADVERTENCIA! Transferencia Rechazada")
             st.markdown("**Debe activar y escanear su Token Digital para continuar.**")
             
-            qr_path = datos["config"].get("qr_path", "")
-            if qr_path and os.path.exists(qr_path):
-                st.image(qr_path, caption="Escanee su Código QR", width=200)
-            else:
-                st.warning("Imagen QR no configurada (Configure la imagen en Seguridad).")
+            col_qr, col_alerta = st.columns([1, 2])
+            
+            with col_qr:
+                qr_path = datos["config"].get("qr_path", "")
+                if qr_path and os.path.exists(qr_path):
+                    st.image(qr_path, caption="Escanee su Código QR", width=200)
+                else:
+                    st.warning("Imagen QR no configurada (Configure la imagen en Seguridad).")
+
+            with col_alerta:
+                st.error("Por motivos de seguridad tributaria ante la SUNAT, no está permitido realizar esta operación")
 
             col1, col2 = st.columns(2)
             with col1:
