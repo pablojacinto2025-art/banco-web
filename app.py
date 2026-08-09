@@ -184,6 +184,15 @@ def simular_movimientos_diarios(datos):
         datos["ultima_fecha_simulacion"] = hoy_str
         guardar_datos(datos)
 
+def guardar_imagen_subida(archivo_subido, nombre_archivo):
+    """Guarda una imagen subida por el usuario en el disco"""
+    if archivo_subido is not None:
+        ruta_completa = os.path.join(BASE_DIR, nombre_archivo)
+        with open(ruta_completa, "wb") as f:
+            f.write(archivo_subido.getbuffer())
+        return ruta_completa
+    return None
+
 # --- INICIALIZACIÓN DE ESTADO EN STREAMLIT ---
 if "datos" not in st.session_state:
     st.session_state["datos"] = cargar_datos()
@@ -342,7 +351,6 @@ else:
                     minimo = datos["config"]["monto_minimo"]
                     if t["monto"] < minimo:
                         st.error(f"El monto mínimo de transferencia es S/ {minimo}")
-                        # ¡AQUÍ ESTÁ LA NUEVA LÍNEA QUE AGREGA EL ANUNCIO CON EL MONTO AGOTADO!
                         st.error(f"Monto De S/ {t['monto']:,.1f} Agotado.")
                     elif datos["config"]["token_activo"]:
                         st.session_state["transf_step"] = 5  # Error Token
@@ -421,7 +429,7 @@ else:
             if qr_path and os.path.exists(qr_path):
                 st.image(qr_path, caption="Escanee su Código QR", width=200)
             else:
-                st.warning("Imagen QR no configurada (Configure la ruta en Seguridad).")
+                st.warning("Imagen QR no configurada (Configure la imagen en Seguridad).")
 
             col1, col2 = st.columns(2)
             with col1:
@@ -513,7 +521,7 @@ else:
         if c1_path and os.path.exists(c1_path):
             st.image(c1_path, use_column_width=True)
         else:
-            st.info("Sin imagen configurada para Combo 1 (Ajuste la ruta en Seguridad).")
+            st.info("Sin imagen configurada para Combo 1 (Ajuste la imagen en Seguridad).")
 
         st.divider()
 
@@ -522,7 +530,7 @@ else:
         if c2_path and os.path.exists(c2_path):
             st.image(c2_path, use_column_width=True)
         else:
-            st.info("Sin imagen configurada para Combo 2 (Ajuste la ruta en Seguridad).")
+            st.info("Sin imagen configurada para Combo 2 (Ajuste la imagen en Seguridad).")
 
     # --- TAB 5: SEGURIDAD Y CONFIGURACIÓN ---
     elif opcion == "Seguridad":
@@ -564,17 +572,37 @@ else:
                 guardar_datos(datos)
                 st.success("Configuración de Token guardada.")
 
-        # Rutas de Imágenes
+        # Subida de Imágenes
         with st.expander("🖼️ IMÁGENES DEL SISTEMA"):
-            qr_p = st.text_input("Ruta Código QR", value=cfg.get("qr_path", ""))
-            c1_p = st.text_input("Ruta Paquete 1 (Curso)", value=cfg.get("curso1_path", ""))
-            c2_p = st.text_input("Ruta Combo 2 (Curso)", value=cfg.get("curso2_path", ""))
-            if st.button("Guardar Rutas de Imágenes"):
-                cfg["qr_path"] = qr_p
-                cfg["curso1_path"] = c1_p
-                cfg["curso2_path"] = c2_p
-                guardar_datos(datos)
-                st.success("Rutas de imágenes guardadas.")
+            st.write("Selecciona una imagen de tus archivos para cada sección:")
+            
+            qr_file = st.file_uploader("Seleccionar Código QR", type=["png", "jpg", "jpeg"], key="qr_upload")
+            c1_file = st.file_uploader("Seleccionar Paquete 1 (Curso)", type=["png", "jpg", "jpeg"], key="c1_upload")
+            c2_file = st.file_uploader("Seleccionar Combo 2 (Curso)", type=["png", "jpg", "jpeg"], key="c2_upload")
+            
+            if st.button("Guardar Imágenes"):
+                hubo_cambios = False
+                if qr_file is not None:
+                    path = guardar_imagen_subida(qr_file, "qr_code.png")
+                    if path:
+                        cfg["qr_path"] = path
+                        hubo_cambios = True
+                if c1_file is not None:
+                    path = guardar_imagen_subida(c1_file, "curso1.png")
+                    if path:
+                        cfg["curso1_path"] = path
+                        hubo_cambios = True
+                if c2_file is not None:
+                    path = guardar_imagen_subida(c2_file, "curso2.png")
+                    if path:
+                        cfg["curso2_path"] = path
+                        hubo_cambios = True
+                
+                if hubo_cambios:
+                    guardar_datos(datos)
+                    st.success("¡Imágenes subidas y guardadas con éxito!")
+                else:
+                    st.warning("Selecciona al menos un archivo antes de guardar.")
 
         # Cronómetro
         with st.expander("⏱️ TIEMPO DE ESPERA Y CRONÓMETRO"):
