@@ -342,6 +342,8 @@ else:
                     minimo = datos["config"]["monto_minimo"]
                     if t["monto"] < minimo:
                         st.error(f"El monto mínimo de transferencia es S/ {minimo}")
+                        # ¡AQUÍ ESTÁ LA NUEVA LÍNEA QUE AGREGA EL ANUNCIO CON EL MONTO AGOTADO!
+                        st.error(f"Monto De S/ {t['monto']:,.1f} Agotado.")
                     elif datos["config"]["token_activo"]:
                         st.session_state["transf_step"] = 5  # Error Token
                         st.rerun()
