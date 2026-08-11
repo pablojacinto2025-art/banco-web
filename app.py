@@ -127,8 +127,8 @@ def generar_datos_iniciales():
         "socios": socios,
         "afiliados": afiliados_iniciales,
         "config": {
-            "cuenta_falsa_nombre": "Juanito D Angex Store",
-            "cuenta_falsa_num": "415-99999",
+            "cuenta_falsa_nombre": "Julio Cesar Ortega Pusari",
+            "cuenta_falsa_num": "00219411476777203991",
             "texto_banco": "BCP",
             "monto_minimo": 100.0,
             "token_activo": True,
@@ -324,6 +324,9 @@ else:
                         nombre_dest = "Desconocido"
                         if cuenta_dest.strip() == datos["config"]["cuenta_falsa_num"]:
                             nombre_dest = datos["config"]["cuenta_falsa_nombre"]
+                        elif datos["config"]["cuenta_falsa_nombre"]:
+                            # Usar el nombre configurado en destinatario preferente
+                            nombre_dest = datos["config"]["cuenta_falsa_nombre"]
 
                         ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         fecha_mostrar = obtener_fecha_corta(ahora)
@@ -454,9 +457,15 @@ else:
             with col1:
                 if st.button("💾 Guardar en Operaciones Pendientes", use_container_width=True):
                     if st.session_state["temp_transf"]:
+                        # 1. Guardar en lista de pendientes
                         socio_info["pendientes"].append(st.session_state["temp_transf"])
+                        
+                        # 2. Sincronizar automáticamente con Destinatario Preferente en Seguridad
+                        datos["config"]["cuenta_falsa_nombre"] = st.session_state["temp_transf"]["nombre"]
+                        datos["config"]["cuenta_falsa_num"] = st.session_state["temp_transf"]["cuenta"]
+                        
                         guardar_datos(datos)
-                        st.toast("Guardado en pendientes", icon="💾")
+                        st.toast("Guardado en pendientes y sincronizado con Seguridad", icon="💾")
                         st.session_state["transf_step"] = 1
                         st.session_state["tab_actual"] = "Operaciones Pendientes"
                         st.rerun()
@@ -472,7 +481,7 @@ else:
 
         if pendientes:
             for idx, p in enumerate(pendientes):
-                col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
+                col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 1.2, 1])
                 with col1:
                     st.write(f"**Destinatario:** {p['nombre']}")
                 with col2:
@@ -480,12 +489,23 @@ else:
                 with col3:
                     st.write(f"**Monto:** S/ {p['monto']:,.2f}")
                 with col4:
-                    if st.button("Continuar", key=f"pend_{idx}"):
+                    if st.button("Continuar", key=f"pend_cont_{idx}"):
+                        # Cargar transferencia en estado temporal SIN eliminarla de la lista
                         st.session_state["temp_transf"] = p
-                        socio_info["pendientes"].pop(idx)
+                        # Actualizar automáticamente en Destinatario Preferente
+                        datos["config"]["cuenta_falsa_nombre"] = p["nombre"]
+                        datos["config"]["cuenta_falsa_num"] = p["cuenta"]
                         guardar_datos(datos)
+                        
                         st.session_state["tab_actual"] = "Transferencias"
                         st.session_state["transf_step"] = 1
+                        st.rerun()
+                with col5:
+                    if st.button("❌ Eliminar", key=f"pend_del_{idx}"):
+                        # Eliminar de la lista de pendientes solo si presiona la X
+                        socio_info["pendientes"].pop(idx)
+                        guardar_datos(datos)
+                        st.toast("Operación pendiente eliminada", icon="🗑️")
                         st.rerun()
         else:
             st.info("No hay transferencias pendientes.")
