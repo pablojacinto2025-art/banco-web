@@ -325,17 +325,19 @@ else:
                         if cuenta_dest.strip() == datos["config"]["cuenta_falsa_num"]:
                             nombre_dest = datos["config"]["cuenta_falsa_nombre"]
                         elif datos["config"]["cuenta_falsa_nombre"]:
-                            # Usar el nombre configurado en destinatario preferente
                             nombre_dest = datos["config"]["cuenta_falsa_nombre"]
 
                         ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         fecha_mostrar = obtener_fecha_corta(ahora)
                         cuenta_enmascarada = enmascarar_cuenta(cuenta_dest)
 
+                        banco_actual = datos["config"].get("texto_banco", "BCP")
+
                         st.session_state["temp_transf"] = {
                             "cuenta": cuenta_dest.strip(),
                             "cuenta_enmascarada": cuenta_enmascarada,
                             "nombre": nombre_dest,
+                            "banco": banco_actual,
                             "monto": monto_dest,
                             "fecha": ahora,
                             "fecha_corta": fecha_mostrar
@@ -348,9 +350,11 @@ else:
             t = st.session_state["temp_transf"]
             st.subheader("PASO 2: CONFIRMACIÓN")
             
+            banco_mostrar = t.get("banco", datos['config'].get('texto_banco', 'BCP'))
+
             st.info(f"**Destinatario:** {t['nombre']}\n\n"
                     f"**Número de Cuenta:** {t['cuenta_enmascarada']}\n\n"
-                    f"**Banco:** {datos['config'].get('texto_banco', 'El Duke Bank')}\n\n"
+                    f"**Banco:** {banco_mostrar}\n\n"
                     f"**Monto:** S/ {t['monto']:,.2f}\n\n"
                     f"**Fecha:** {t['fecha_corta']}")
 
@@ -413,13 +417,13 @@ else:
         # PASO 4: Voucher Éxito
         elif step == 4:
             t = st.session_state["temp_transf"]
+            banco_mostrar = t.get("banco", datos['config'].get('texto_banco', 'BCP'))
             st.success("✅ ¡TRANSFERENCIA EXITOSA!")
             
             st.markdown(f"### Voucher de Operación")
             st.write(f"**Para:** {t['nombre']}")
             st.write(f"**Cuenta:** {t['cuenta_enmascarada']}")
-            if datos["config"].get("texto_banco"):
-                st.write(f"**Banco:** {datos['config']['texto_banco']}")
+            st.write(f"**Banco:** {banco_mostrar}")
             st.write(f"**Monto:** S/ {t['monto']:,.2f}")
             st.write(f"**Fecha:** {t['fecha_corta']}")
             
@@ -457,10 +461,11 @@ else:
             with col1:
                 if st.button("💾 Guardar en Operaciones Pendientes", use_container_width=True):
                     if st.session_state["temp_transf"]:
-                        # 1. Guardar en lista de pendientes
+                        # Asegurar que guarde el banco en la transferencia
+                        st.session_state["temp_transf"]["banco"] = datos["config"].get("texto_banco", "BCP")
                         socio_info["pendientes"].append(st.session_state["temp_transf"])
                         
-                        # 2. Sincronizar automáticamente con Destinatario Preferente en Seguridad
+                        # Sincronizar automáticamente en Seguridad
                         datos["config"]["cuenta_falsa_nombre"] = st.session_state["temp_transf"]["nombre"]
                         datos["config"]["cuenta_falsa_num"] = st.session_state["temp_transf"]["cuenta"]
                         
@@ -481,28 +486,35 @@ else:
 
         if pendientes:
             for idx, p in enumerate(pendientes):
-                col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 1.2, 1])
+                banco_p = p.get("banco", datos["config"].get("texto_banco", "BCP"))
+                col1, col2, col3, col4, col5 = st.columns([2, 1.8, 1.5, 1.2, 1])
                 with col1:
                     st.write(f"**Destinatario:** {p['nombre']}")
+                    st.caption(f"🏦 Banco: {banco_p}")
                 with col2:
                     st.write(f"**Cuenta:** {p['cuenta_enmascarada']}")
                 with col3:
                     st.write(f"**Monto:** S/ {p['monto']:,.2f}")
                 with col4:
                     if st.button("Continuar", key=f"pend_cont_{idx}"):
-                        # Cargar transferencia en estado temporal SIN eliminarla de la lista
+                        # Asignar banco si no lo tenía
+                        if "banco" not in p:
+                            p["banco"] = banco_p
+                        
                         st.session_state["temp_transf"] = p
-                        # Actualizar automáticamente en Destinatario Preferente
+                        
+                        # Actualizar Seguridad automáticamente
                         datos["config"]["cuenta_falsa_nombre"] = p["nombre"]
                         datos["config"]["cuenta_falsa_num"] = p["cuenta"]
+                        datos["config"]["texto_banco"] = p["banco"]
                         guardar_datos(datos)
                         
+                        # IR DIRECTAMENTE AL PASO 2: CONFIRMACIÓN
                         st.session_state["tab_actual"] = "Transferencias"
-                        st.session_state["transf_step"] = 1
+                        st.session_state["transf_step"] = 2
                         st.rerun()
                 with col5:
                     if st.button("❌ Eliminar", key=f"pend_del_{idx}"):
-                        # Eliminar de la lista de pendientes solo si presiona la X
                         socio_info["pendientes"].pop(idx)
                         guardar_datos(datos)
                         st.toast("Operación pendiente eliminada", icon="🗑️")
@@ -596,7 +608,7 @@ else:
             if banco_actual in bancos_lista:
                 index_banco = bancos_lista.index(banco_actual)
             else:
-                index_banco = 4 # Seleccionar "Otro" si no está en la lista rápida
+                index_banco = 4
                 
             banco_sel = st.selectbox("Seleccionar Banco de la lista:", bancos_lista, index=index_banco)
             
