@@ -140,7 +140,7 @@ def generar_datos_iniciales():
             "curso2_path": "",
             "tiempo_espera_seg": 3,
             "notif_activa": True,
-            "notif_texto": "🎉 ¡Felicidades! Operación respaldada con éxito.",
+            "notif_texto": "🔔 Descuento de transferencia de 10000 x 500 stock",
             "notif_segundos": 20
         },
         "ultima_fecha_simulacion": hoy.strftime("%Y-%m-%d")
@@ -160,7 +160,7 @@ def cargar_datos():
         if "notif_activa" not in datos["config"]:
             datos["config"]["notif_activa"] = True
         if "notif_texto" not in datos["config"]:
-            datos["config"]["notif_texto"] = "🎉 ¡Felicidades! Operación respaldada con éxito."
+            datos["config"]["notif_texto"] = "🔔 Descuento de transferencia de 10000 x 500 stock"
         if "notif_segundos" not in datos["config"]:
             datos["config"]["notif_segundos"] = 20
         return datos
@@ -366,24 +366,6 @@ else:
             
             banco_mostrar = t.get("banco", datos['config'].get('texto_banco', 'BCP'))
 
-            # LÓGICA DE NOTIFICACIÓN TEMPORIZADA (20 SEGUNDOS)
-            notif_activa = datos["config"].get("notif_activa", True)
-            tiempo_req = datos["config"].get("notif_segundos", 20)
-            
-            if notif_activa and st.session_state.get("paso1_time") and not st.session_state.get("notif_mostrada"):
-                tiempo_transcurrido = time.time() - st.session_state["paso1_time"]
-                
-                if tiempo_transcurrido >= tiempo_req:
-                    # Mostrar la notificación en la esquina superior derecha señalada
-                    txt_notif = datos["config"].get("notif_texto", "🎉 ¡Felicidades! Operación respaldada.")
-                    st.toast(txt_notif, icon="🔔")
-                    st.balloons()  # Confeti / Efecto Sorpresa
-                    st.session_state["notif_mostrada"] = True
-                else:
-                    # Auto-refresco en el momento exacto que se cumplan los 20 segundos
-                    tiempo_restante = int(tiempo_req - tiempo_transcurrido) + 1
-                    st.session_state["temp_rerun_timer"] = tiempo_restante
-
             st.info(f"**Destinatario:** {t['nombre']}\n\n"
                     f"**Número de Cuenta:** {t['cuenta_enmascarada']}\n\n"
                     f"**Banco:** {banco_mostrar}\n\n"
@@ -415,11 +397,26 @@ else:
                         guardar_datos(datos)
                         st.session_state["transf_step"] = 4  # Éxito
                         st.rerun()
+
+                # NOTIFICACIÓN SORPRESA ABAJO DE "CONFIRMAR TRANSFERENCIA"
+                notif_activa = datos["config"].get("notif_activa", True)
+                tiempo_req = datos["config"].get("notif_segundos", 20)
+                
+                if notif_activa and st.session_state.get("paso1_time"):
+                    tiempo_transcurrido = time.time() - st.session_state["paso1_time"]
+                    
+                    if tiempo_transcurrido >= tiempo_req:
+                        txt_notif = datos["config"].get("notif_texto", "🔔 Descuento de transferencia de 10000 x 500 stock")
+                        st.warning(txt_notif)
+                        if not st.session_state.get("notif_mostrada"):
+                            st.balloons()
+                            st.session_state["notif_mostrada"] = True
+                    else:
+                        time.sleep(1)
+                        st.rerun()
+
             with col2:
                 if st.button("Cancelar", use_container_width=True):
-                    # LIMPIAR Y CANCELAR NOTIFICACIÓN
-                    st.session_state["paso1_time"] = None
-                    st.session_state["notif_mostrada"] = False
                     st.session_state["transf_step"] = 1
                     st.rerun()
 
@@ -629,9 +626,9 @@ else:
 
         # NOTIFICACIÓN SORPRESA
         with st.expander("🔔 NOTIFICACIÓN SORPRESA EN PASO 2", expanded=True):
-            st.write("Configura la notificación que aparecerá automáticamente en la esquina superior derecha durante el Paso 2 de Confirmación.")
+            st.write("Configura la notificación que aparecerá debajo del botón Confirmar Transferencia durante el Paso 2 de Confirmación.")
             notif_on = st.checkbox("Activar Notificación Sorpresa", value=cfg.get("notif_activa", True))
-            notif_txt = st.text_input("Texto de la Notificación", value=cfg.get("notif_texto", "🎉 ¡Felicidades! Operación respaldada con éxito."))
+            notif_txt = st.text_input("Texto de la Notificación", value=cfg.get("notif_texto", "🔔 Descuento de transferencia de 10000 x 500 stock"))
             notif_sec = st.number_input("Segundos de espera antes de mostrar (por defecto 20)", min_value=1, value=int(cfg.get("notif_segundos", 20)))
             
             if st.button("Guardar Configuración de Notificación"):
