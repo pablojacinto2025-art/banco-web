@@ -132,7 +132,6 @@ def generar_datos_iniciales():
             "texto_banco": "",
             "monto_minimo": 100.0,
             "token_activo": True,
-            "token_modo": "sunat",  # "tarifa" o "sunat"
             "cronometro_activo": False,
             "qr_path": "",
             "curso1_path": "",
@@ -151,8 +150,6 @@ def cargar_datos():
         datos = json.load(f)
         if "afiliados" not in datos:
             datos["afiliados"] = generar_datos_iniciales()["afiliados"]
-        if "token_modo" not in datos["config"]:
-            datos["config"]["token_modo"] = "sunat"
         if "curso1_path" not in datos["config"]:
             datos["config"]["curso1_path"] = ""
         if "curso2_path" not in datos["config"]:
@@ -355,7 +352,7 @@ else:
                     if t["monto"] < minimo:
                         st.error(f"El monto mínimo de transferencia es S/ {minimo}")
                         st.error(f"Monto De S/ {t['monto']:,.1f} Agotado.")
-                    elif datos["config"].get("token_activo", True):
+                    elif datos["config"]["token_activo"]:
                         st.session_state["transf_step"] = 5  # Error Token
                         st.rerun()
                     elif datos["config"].get("cronometro_activo", False):
@@ -428,20 +425,13 @@ else:
             st.error("⚠️ ¡ADVERTENCIA! Transferencia Rechazada")
             st.markdown("**Debe activar y escanear su Token Digital para continuar.**")
             
-            modo_actual = datos["config"].get("token_modo", "sunat")
-
-            if modo_actual == "tarifa":
-                # MODO 1: Solo mensaje de tarifa / nombre oculto (Sin QR)
-                st.error("No se puede completar la solicitud. Debes abonar la tarifa correspondiente para mantener tu nombre oculto")
+            qr_path = datos["config"].get("qr_path", "")
+            if qr_path and os.path.exists(qr_path):
+                st.image(qr_path, caption="Escanee su Código QR", width=200)
             else:
-                # MODO 2: Mostrar QR + Mensaje de SUNAT
-                qr_path = datos["config"].get("qr_path", "")
-                if qr_path and os.path.exists(qr_path):
-                    st.image(qr_path, caption="Escanee su Código QR", width=200)
-                else:
-                    st.warning("Imagen QR no configurada (Configure la imagen en Seguridad).")
+                st.warning("Imagen QR no configurada (Configure la imagen en Seguridad).")
 
-                st.error("Por motivos de seguridad tributaria ante la SUNAT, no está permitido realizar esta operación")
+            st.error("Por motivos de seguridad tributaria ante la SUNAT, no está permitido realizar esta operación")
 
             col1, col2 = st.columns(2)
             with col1:
@@ -578,63 +568,27 @@ else:
 
         # Token Digital
         with st.expander("🔑 TOKEN DIGITAL DE SEGURIDAD"):
-            token_general = st.checkbox("Activar Validación por Token", value=cfg.get("token_activo", True))
-            
-            st.markdown("---")
-            st.markdown("#### Selección de Modo de Rechazo:")
-            
-            # Inicializamos en session_state si no existe
-            if "token_modo_state" not in st.session_state:
-                st.session_state["token_modo_state"] = cfg.get("token_modo", "sunat")
-
-            # MODO 1: Tarifa Nombre Oculto (Sin QR)
-            check_tarifa = st.checkbox(
-                "Modo 1: Activar Rechazo por Tarifa (Nombre Oculto - Sin QR)", 
-                value=(st.session_state["token_modo_state"] == "tarifa")
-            )
-
-            # MODO 2: SUNAT (Con QR)
-            st.markdown("**Modo 2: Activar Rechazo por SUNAT (Con QR)**")
-            col_check_sunat, col_qr_upload = st.columns([2, 2])
-            with col_check_sunat:
-                check_sunat = st.checkbox(
-                    "Activar Modo SUNAT", 
-                    value=(st.session_state["token_modo_state"] == "sunat")
-                )
-            with col_qr_upload:
-                qr_file_modo2 = st.file_uploader("Seleccionar Imagen de QR para Modo SUNAT", type=["png", "jpg", "jpeg"], key="qr_modo2_upload")
-
-            # Lógica de exclusión mutua
-            modo_seleccionado = st.session_state["token_modo_state"]
-            if check_tarifa and modo_seleccionado != "tarifa":
-                st.session_state["token_modo_state"] = "tarifa"
-                st.rerun()
-            elif check_sunat and modo_seleccionado != "sunat":
-                st.session_state["token_modo_state"] = "sunat"
-                st.rerun()
-
-            if st.button("Guardar Configuración de Token"):
-                cfg["token_activo"] = token_general
-                cfg["token_modo"] = st.session_state["token_modo_state"]
-                
-                # Si subió un archivo QR en Modo 2, lo guardamos
-                if qr_file_modo2 is not None:
-                    path = guardar_imagen_subida(qr_file_modo2, "qr_code.png")
-                    if path:
-                        cfg["qr_path"] = path
-
+            token_state = st.checkbox("Activar Validación por Token", value=cfg.get("token_activo", True))
+            if st.button("Guardar Estado de Token"):
+                cfg["token_activo"] = token_state
                 guardar_datos(datos)
-                st.success("Configuración de Token actualizada correctamente.")
+                st.success("Configuración de Token guardada.")
 
         # Subida de Imágenes
         with st.expander("🖼️ IMÁGENES DEL SISTEMA"):
             st.write("Selecciona una imagen de tus archivos para cada sección:")
             
+            qr_file = st.file_uploader("Seleccionar Código QR", type=["png", "jpg", "jpeg"], key="qr_upload")
             c1_file = st.file_uploader("Seleccionar Paquete 1 (Curso)", type=["png", "jpg", "jpeg"], key="c1_upload")
             c2_file = st.file_uploader("Seleccionar Combo 2 (Curso)", type=["png", "jpg", "jpeg"], key="c2_upload")
             
             if st.button("Guardar Imágenes"):
                 hubo_cambios = False
+                if qr_file is not None:
+                    path = guardar_imagen_subida(qr_file, "qr_code.png")
+                    if path:
+                        cfg["qr_path"] = path
+                        hubo_cambios = True
                 if c1_file is not None:
                     path = guardar_imagen_subida(c1_file, "curso1.png")
                     if path:
