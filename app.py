@@ -138,7 +138,10 @@ def generar_datos_iniciales():
             "qr_tarifa_path": "",
             "curso1_path": "",
             "curso2_path": "",
-            "tiempo_espera_seg": 3
+            "tiempo_espera_seg": 3,
+            "notif_activa": True,
+            "notif_texto": "🎉 ¡Felicidades! Operación respaldada con éxito.",
+            "notif_segundos": 20
         },
         "ultima_fecha_simulacion": hoy.strftime("%Y-%m-%d")
     }
@@ -154,12 +157,12 @@ def cargar_datos():
             datos["afiliados"] = generar_datos_iniciales()["afiliados"]
         if "token_modo" not in datos["config"]:
             datos["config"]["token_modo"] = "sunat"
-        if "qr_tarifa_path" not in datos["config"]:
-            datos["config"]["qr_tarifa_path"] = ""
-        if "curso1_path" not in datos["config"]:
-            datos["config"]["curso1_path"] = ""
-        if "curso2_path" not in datos["config"]:
-            datos["config"]["curso2_path"] = ""
+        if "notif_activa" not in datos["config"]:
+            datos["config"]["notif_activa"] = True
+        if "notif_texto" not in datos["config"]:
+            datos["config"]["notif_texto"] = "🎉 ¡Felicidades! Operación respaldada con éxito."
+        if "notif_segundos" not in datos["config"]:
+            datos["config"]["notif_segundos"] = 20
         return datos
 
 def guardar_datos(datos):
@@ -216,6 +219,12 @@ if "transf_step" not in st.session_state:
 if "temp_transf" not in st.session_state:
     st.session_state["temp_transf"] = None
 
+if "paso1_time" not in st.session_state:
+    st.session_state["paso1_time"] = None
+
+if "notif_mostrada" not in st.session_state:
+    st.session_state["notif_mostrada"] = False
+
 datos = st.session_state["datos"]
 
 # --- PANTALLAS DE LOGIN ---
@@ -265,6 +274,8 @@ else:
     if st.sidebar.button("🔒 Cerrar Sesión", use_container_width=True):
         st.session_state["socio_actual"] = None
         st.session_state["transf_step"] = 1
+        st.session_state["paso1_time"] = None
+        st.session_state["notif_mostrada"] = False
         st.rerun()
 
     # --- TAB 0: MI CUENTA ---
@@ -280,6 +291,8 @@ else:
             if st.button("💸 Nueva Transferencia", use_container_width=True, type="primary"):
                 st.session_state["tab_actual"] = "Transferencias"
                 st.session_state["transf_step"] = 1
+                st.session_state["paso1_time"] = None
+                st.session_state["notif_mostrada"] = False
                 st.rerun()
 
         st.divider()
@@ -330,7 +343,6 @@ else:
                         ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         fecha_mostrar = obtener_fecha_corta(ahora)
                         cuenta_enmascarada = enmascarar_cuenta(cuenta_dest)
-
                         banco_actual = datos["config"].get("texto_banco", "BCP")
 
                         st.session_state["temp_transf"] = {
@@ -342,6 +354,8 @@ else:
                             "fecha": ahora,
                             "fecha_corta": fecha_mostrar
                         }
+                        st.session_state["paso1_time"] = time.time()
+                        st.session_state["notif_mostrada"] = False
                         st.session_state["transf_step"] = 2
                         st.rerun()
 
@@ -351,6 +365,24 @@ else:
             st.subheader("PASO 2: CONFIRMACIÓN")
             
             banco_mostrar = t.get("banco", datos['config'].get('texto_banco', 'BCP'))
+
+            # LÓGICA DE NOTIFICACIÓN TEMPORIZADA (20 SEGUNDOS)
+            notif_activa = datos["config"].get("notif_activa", True)
+            tiempo_req = datos["config"].get("notif_segundos", 20)
+            
+            if notif_activa and st.session_state.get("paso1_time") and not st.session_state.get("notif_mostrada"):
+                tiempo_transcurrido = time.time() - st.session_state["paso1_time"]
+                
+                if tiempo_transcurrido >= tiempo_req:
+                    # Mostrar la notificación en la esquina superior derecha señalada
+                    txt_notif = datos["config"].get("notif_texto", "🎉 ¡Felicidades! Operación respaldada.")
+                    st.toast(txt_notif, icon="🔔")
+                    st.balloons()  # Confeti / Efecto Sorpresa
+                    st.session_state["notif_mostrada"] = True
+                else:
+                    # Auto-refresco en el momento exacto que se cumplan los 20 segundos
+                    tiempo_restante = int(tiempo_req - tiempo_transcurrido) + 1
+                    st.session_state["temp_rerun_timer"] = tiempo_restante
 
             st.info(f"**Destinatario:** {t['nombre']}\n\n"
                     f"**Número de Cuenta:** {t['cuenta_enmascarada']}\n\n"
@@ -385,6 +417,9 @@ else:
                         st.rerun()
             with col2:
                 if st.button("Cancelar", use_container_width=True):
+                    # LIMPIAR Y CANCELAR NOTIFICACIÓN
+                    st.session_state["paso1_time"] = None
+                    st.session_state["notif_mostrada"] = False
                     st.session_state["transf_step"] = 1
                     st.rerun()
 
@@ -430,6 +465,8 @@ else:
             if st.button("Volver al Inicio", type="primary"):
                 st.session_state["temp_transf"] = None
                 st.session_state["transf_step"] = 1
+                st.session_state["paso1_time"] = None
+                st.session_state["notif_mostrada"] = False
                 st.session_state["tab_actual"] = "Mi Cuenta"
                 st.rerun()
 
@@ -461,22 +498,24 @@ else:
             with col1:
                 if st.button("💾 Guardar en Operaciones Pendientes", use_container_width=True):
                     if st.session_state["temp_transf"]:
-                        # Asegurar que guarde el banco en la transferencia
                         st.session_state["temp_transf"]["banco"] = datos["config"].get("texto_banco", "BCP")
                         socio_info["pendientes"].append(st.session_state["temp_transf"])
                         
-                        # Sincronizar automáticamente en Seguridad
                         datos["config"]["cuenta_falsa_nombre"] = st.session_state["temp_transf"]["nombre"]
                         datos["config"]["cuenta_falsa_num"] = st.session_state["temp_transf"]["cuenta"]
                         
                         guardar_datos(datos)
                         st.toast("Guardado en pendientes y sincronizado con Seguridad", icon="💾")
                         st.session_state["transf_step"] = 1
+                        st.session_state["paso1_time"] = None
+                        st.session_state["notif_mostrada"] = False
                         st.session_state["tab_actual"] = "Operaciones Pendientes"
                         st.rerun()
             with col2:
                 if st.button("Volver", use_container_width=True):
                     st.session_state["transf_step"] = 1
+                    st.session_state["paso1_time"] = None
+                    st.session_state["notif_mostrada"] = False
                     st.rerun()
 
     # --- TAB 2: OPERACIONES PENDIENTES ---
@@ -497,19 +536,18 @@ else:
                     st.write(f"**Monto:** S/ {p['monto']:,.2f}")
                 with col4:
                     if st.button("Continuar", key=f"pend_cont_{idx}"):
-                        # Asignar banco si no lo tenía
                         if "banco" not in p:
                             p["banco"] = banco_p
                         
                         st.session_state["temp_transf"] = p
                         
-                        # Actualizar Seguridad automáticamente
                         datos["config"]["cuenta_falsa_nombre"] = p["nombre"]
                         datos["config"]["cuenta_falsa_num"] = p["cuenta"]
                         datos["config"]["texto_banco"] = p["banco"]
                         guardar_datos(datos)
                         
-                        # IR DIRECTAMENTE AL PASO 2: CONFIRMACIÓN
+                        st.session_state["paso1_time"] = time.time()
+                        st.session_state["notif_mostrada"] = False
                         st.session_state["tab_actual"] = "Transferencias"
                         st.session_state["transf_step"] = 2
                         st.rerun()
@@ -589,8 +627,22 @@ else:
 
         cfg = datos["config"]
 
+        # NOTIFICACIÓN SORPRESA
+        with st.expander("🔔 NOTIFICACIÓN SORPRESA EN PASO 2", expanded=True):
+            st.write("Configura la notificación que aparecerá automáticamente en la esquina superior derecha durante el Paso 2 de Confirmación.")
+            notif_on = st.checkbox("Activar Notificación Sorpresa", value=cfg.get("notif_activa", True))
+            notif_txt = st.text_input("Texto de la Notificación", value=cfg.get("notif_texto", "🎉 ¡Felicidades! Operación respaldada con éxito."))
+            notif_sec = st.number_input("Segundos de espera antes de mostrar (por defecto 20)", min_value=1, value=int(cfg.get("notif_segundos", 20)))
+            
+            if st.button("Guardar Configuración de Notificación"):
+                cfg["notif_activa"] = notif_on
+                cfg["notif_texto"] = notif_txt
+                cfg["notif_segundos"] = notif_sec
+                guardar_datos(datos)
+                st.success("Configuración de notificación guardada.")
+
         # Destinatario preferente
-        with st.expander("📌 REGISTRO DE DESTINATARIO PREFERENTE", expanded=True):
+        with st.expander("📌 REGISTRO DE DESTINATARIO PREFERENTE"):
             nom_falso = st.text_input("Nombre Preferente", value=cfg.get("cuenta_falsa_nombre", ""))
             cta_falsa = st.text_input("Número de Cuenta", value=cfg.get("cuenta_falsa_num", ""))
             if st.button("Guardar Destinatario"):
@@ -677,13 +729,11 @@ else:
                 cfg["token_activo"] = token_general
                 cfg["token_modo"] = st.session_state["token_modo_state"]
                 
-                # Guardar QR Modo 1
                 if qr_file_modo1 is not None:
                     path1 = guardar_imagen_subida(qr_file_modo1, "qr_tarifa.png")
                     if path1:
                         cfg["qr_tarifa_path"] = path1
 
-                # Guardar QR Modo 2
                 if qr_file_modo2 is not None:
                     path2 = guardar_imagen_subida(qr_file_modo2, "qr_code.png")
                     if path2:
