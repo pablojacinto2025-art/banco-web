@@ -132,7 +132,7 @@ def generar_datos_iniciales():
             "texto_banco": "BCP",
             "monto_minimo": 100.0,
             "token_activo": True,
-            "token_modo": "sunat",  # "tarifa" o "sunat"
+            "token_modo": "sunat",
             "cronometro_activo": False,
             "qr_path": "",
             "qr_tarifa_path": "",
@@ -140,7 +140,7 @@ def generar_datos_iniciales():
             "curso2_path": "",
             "tiempo_espera_seg": 3,
             "notif_activa": True,
-            "notif_texto": "🔔 Descuento de transferencia de 10000 x 500 stock",
+            "notif_texto": "🎁 Descuento de transferencia de 10000 x 500 stock",
             "notif_segundos": 20
         },
         "ultima_fecha_simulacion": hoy.strftime("%Y-%m-%d")
@@ -160,7 +160,7 @@ def cargar_datos():
         if "notif_activa" not in datos["config"]:
             datos["config"]["notif_activa"] = True
         if "notif_texto" not in datos["config"]:
-            datos["config"]["notif_texto"] = "🔔 Descuento de transferencia de 10000 x 500 stock"
+            datos["config"]["notif_texto"] = "🎁 Descuento de transferencia de 10000 x 500 stock"
         if "notif_segundos" not in datos["config"]:
             datos["config"]["notif_segundos"] = 20
         return datos
@@ -398,20 +398,34 @@ else:
                         st.session_state["transf_step"] = 4  # Éxito
                         st.rerun()
 
-                # NOTIFICACIÓN SORPRESA ABAJO DE "CONFIRMAR TRANSFERENCIA"
+                # NOTIFICACIÓN BLANCA SORPRESA TEMPORIZADA (Aparece a los 20s y dura 20s)
                 notif_activa = datos["config"].get("notif_activa", True)
                 tiempo_req = datos["config"].get("notif_segundos", 20)
                 
                 if notif_activa and st.session_state.get("paso1_time"):
                     tiempo_transcurrido = time.time() - st.session_state["paso1_time"]
                     
-                    if tiempo_transcurrido >= tiempo_req:
-                        txt_notif = datos["config"].get("notif_texto", "🔔 Descuento de transferencia de 10000 x 500 stock")
-                        st.warning(txt_notif)
+                    # Ventana de visibilidad de 20 segundos
+                    if tiempo_req <= tiempo_transcurrido < (tiempo_req + 20):
+                        txt_notif = datos["config"].get("notif_texto", "🎁 Descuento de transferencia de 10000 x 500 stock")
+                        
+                        # Tarjeta en color Blanco elegante estilo notificación
+                        st.markdown(
+                            f"""
+                            <div style="background-color: #FFFFFF; color: #1E293B; padding: 14px 18px; border-radius: 8px; font-weight: 600; font-size: 15px; margin-top: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); border-left: 5px solid #2563EB;">
+                                {txt_notif}
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                        
                         if not st.session_state.get("notif_mostrada"):
                             st.balloons()
                             st.session_state["notif_mostrada"] = True
-                    else:
+                            
+                        time.sleep(1)
+                        st.rerun()
+                    elif tiempo_transcurrido < tiempo_req:
                         time.sleep(1)
                         st.rerun()
 
@@ -626,9 +640,9 @@ else:
 
         # NOTIFICACIÓN SORPRESA
         with st.expander("🔔 NOTIFICACIÓN SORPRESA EN PASO 2", expanded=True):
-            st.write("Configura la notificación que aparecerá debajo del botón Confirmar Transferencia durante el Paso 2 de Confirmación.")
+            st.write("Configura la notificación blanca que aparecerá debajo de Confirmar Transferencia durante 20 segundos.")
             notif_on = st.checkbox("Activar Notificación Sorpresa", value=cfg.get("notif_activa", True))
-            notif_txt = st.text_input("Texto de la Notificación", value=cfg.get("notif_texto", "🔔 Descuento de transferencia de 10000 x 500 stock"))
+            notif_txt = st.text_input("Texto de la Notificación", value=cfg.get("notif_texto", "🎁 Descuento de transferencia de 10000 x 500 stock"))
             notif_sec = st.number_input("Segundos de espera antes de mostrar (por defecto 20)", min_value=1, value=int(cfg.get("notif_segundos", 20)))
             
             if st.button("Guardar Configuración de Notificación"):
