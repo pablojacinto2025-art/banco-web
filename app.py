@@ -892,7 +892,7 @@ else:
                 with c3:
                     af["fecha"] = st.text_input("Fecha", value=af["fecha"], key=f"af_fec_{idx}")
                 with c4:
-                    af wars = st.number_input("Saldo (S/)", value=float(af["saldo"]), key=f"af_sal_{idx}")
+                    af["saldo"] = st.number_input("Saldo (S/)", value=float(af["saldo"]), key=f"af_sal_{idx}")
             if st.button("Guardar Cambios de Afiliados"):
                 guardar_datos(datos)
                 st.success("Afiliados modificados correctamente.")
