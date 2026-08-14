@@ -725,33 +725,25 @@ else:
                 guardar_datos(datos)
                 st.success(f"Banco guardado como: '{banco_final}'")
 
-        # Limite Mínimo
+        # Limite Mínimo (SELECCIÓN POR DESPLEGABLE)
         with st.expander("💰 LÍMITE MÍNIMO DE TRANSFERENCIA", expanded=True):
-            m_min_actual = float(cfg.get("monto_minimo", 5000.0))
+            opciones_limite = ["4000", "5000", "Otro (Escribir manualmente)..."]
+            m_min_actual = cfg.get("monto_minimo", 5000.0)
             
-            # Campo numérico
-            m_min = st.number_input("Monto Mínimo (S/)", value=m_min_actual, step=500.0, key="monto_min_input")
+            str_m_min = str(int(m_min_actual)) if m_min_actual in [4000.0, 5000.0] else "Otro (Escribir manualmente)..."
+            idx_limite = opciones_limite.index(str_m_min) if str_m_min in opciones_limite else 2
             
-            # Botones de Selección Rápida
-            st.write("Selección rápida de límite:")
-            col_m1, col_m2 = st.columns(2)
-            with col_m1:
-                if st.button("📌 S/ 4,000", use_container_width=True):
-                    cfg["monto_minimo"] = 4000.0
-                    guardar_datos(datos)
-                    st.success("Límite mínimo actualizado a S/ 4,000.0")
-                    st.rerun()
-            with col_m2:
-                if st.button("📌 S/ 5,000", use_container_width=True):
-                    cfg["monto_minimo"] = 5000.0
-                    guardar_datos(datos)
-                    st.success("Límite mínimo actualizado a S/ 5,000.0")
-                    st.rerun()
+            limite_sel = st.selectbox("Seleccionar Monto Mínimo de la lista:", opciones_limite, index=idx_limite)
+            
+            if limite_sel == "Otro (Escribir manualmente)...":
+                limite_final = st.number_input("Monto Mínimo Personalizado (S/)", value=float(m_min_actual), step=500.0)
+            else:
+                limite_final = float(limite_sel)
 
-            if st.button("Actualizar Límite Personalizado"):
-                cfg["monto_minimo"] = m_min
+            if st.button("Actualizar Límite"):
+                cfg["monto_minimo"] = limite_final
                 guardar_datos(datos)
-                st.success(f"Límite mínimo actualizado a S/ {m_min:,.2f}")
+                st.success(f"Límite mínimo actualizado a S/ {limite_final:,.2f}")
 
         # Token Digital
         with st.expander("🔑 TOKEN DIGITAL DE SEGURIDAD"):
